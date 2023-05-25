@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header/header';
 import ContentContext from "./Context/searchInputContext";
+import FilmsPage from "./components/pages/films";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path='/' element={<h1>Main</h1>} />
+            <Route path='/' element={<FilmsPage />} />
           </Routes>
         </Router>
       </ContentContext>

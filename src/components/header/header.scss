@@ -13,12 +13,14 @@
         border-radius: 16px;
         height: 30px;
         min-width: 200px;
+        width: 400px;
+        max-width: 600px;
         padding: 12px 15px;
         box-shadow: 0px 0px 15px $color-shadow-red-inactive;
-        color: rgba(0, 0, 255, 0.452);
+        color: $color-write-blue;
     }
     .headerSearch::placeholder{
-        color: rgba(238, 130, 238, 0.158);
+        color: $color-placeholder;
     }
     .headerSearch:focus-visible{
         box-shadow: 0px 0px 15px $color-shadow-red-active;
@@ -29,6 +31,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         max-height: 500px;
+        width: 300px;
 
         .searchGroup{
             display: flex;
@@ -36,20 +39,31 @@
             justify-content: center;
             align-items: flex-start;
             gap: 5px;
+            width: 100%;
             .searchGroupName{
-
+                color: $color-red;
             }
             .SearchGroupInfo{
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
                 gap: 10px;
+                width: 100%;
+                cursor: pointer;
                 .searchFilmImg{
                     width: 40px;
+                }
+                .planets{
+                    border-radius: 24px;
                 }
                 div{
                     color: white;
                 }
+            }
+            .SearchGroupInfo:hover{
+                box-shadow: 0px 0px 15px $color-shadow-red-inactive;
+                padding: 3px;
+                border-radius: 6px;
             }
         }
         
@@ -60,10 +74,12 @@
         top: 60px;
         left: 20px;
         display: block;
-        width: 200px;
+        min-width: 200px;
+        max-width: 500px;
         max-height: 500px;
-        background-color: blue;
+        background-color: $color-background;
         border: var(redPage);
+        border-radius: 10px;
     }
     .headerSearchResoult:hover{
         display: block;

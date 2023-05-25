@@ -1,65 +1,96 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import './header.scss'
-import { SearchInputContext } from '../../Context/searchInputContext';
+import { FilmsContext, PeopleContext, PlanetsContext, SearchInputContext, StarShipsContext } from '../../Context/searchInputContext';
 import debounce from '../debounce/debounce';
-import { StarWars } from '../../api/agent';
-import { Interface } from 'readline';
-import { Url } from 'url';
-// import { SearchInputContext } from '../../Context/searchInputContext';
 
 const Header = () => {
     // const [film, setFilm] = useState();
     // const [people, setPeople] = useState();
     // const [planet, setPlanet] = useState();
     // const [starShip, setStarShip] = useState();
-    interface films {
-        characters: [string],
-        created: string,
-        director: string,
-        edited: string,
-        episode_id: number,
-        id: number,
-        opening_crawl: string,
-        planets: [string],
-        producer: string,
-        release_date: string,
-        species: [string],
-        starships: [string],
-        title: string,
-        vehicles: [string],
-    }
-    interface peoples {
-        birth_year: string,
-        born: number,
-        bornLocation: [string],
-        created: string,
-        died: string,
-        diedLocation: string,
-        edited: string,
-        eye_color: string,
-        films: [string],
-        gender: string,
-        hair_color: string,
-        height: string,
-        homeworld: string,
-        id: number,
-        image: string,
-        mass: string,
-        name: string,
-        skin_color: string,
-        species: string,
-        starships: [string],
-        vehicles: [string],
-        wiki: Url,
-    }
-    interface valueFirst {
-        film: films[],
-        people: peoples[],
-        planet: [],
-        starShip: []
-    }
+    // interface films {
+    //     characters: [string],
+    //     created: string,
+    //     director: string,
+    //     edited: string,
+    //     episode_id: number,
+    //     id: number,
+    //     opening_crawl: string,
+    //     planets: [string],
+    //     producer: string,
+    //     release_date: string,
+    //     species: [string],
+    //     starships: [string],
+    //     title: string,
+    //     vehicles: [string],
+    // }
+    // interface peoples {
+    //     birth_year: string,
+    //     born: number,
+    //     bornLocation: [string],
+    //     created: string,
+    //     died: string,
+    //     diedLocation: string,
+    //     edited: string,
+    //     eye_color: string,
+    //     films: [string],
+    //     gender: string,
+    //     hair_color: string,
+    //     height: string,
+    //     homeworld: string,
+    //     id: number,
+    //     image: string,
+    //     mass: string,
+    //     name: string,
+    //     skin_color: string,
+    //     species: string,
+    //     starships: [string],
+    //     vehicles: [string],
+    //     wiki: Url,
+    // }
+    // interface planets {
+    //     climate: string,
+    //     created: string,
+    //     diameter: string,
+    //     edited: string,
+    //     films: [string],
+    //     gravity: string,
+    //     id: number,
+    //     name: string,
+    //     orbital_period: string,
+    //     population: string,
+    //     residents: [string],
+    //     rotation_period: string,
+    //     surface_water: string,
+    //     terrain: string,
+    // }
+    // interface starShips {
+    //     MGLT: string,
+    //     cargo_capacity: string,
+    //     consumables: string,
+    //     cost_in_credits: string,
+    //     created: string,
+    //     crew: string,
+    //     edited: string,
+    //     films: [string],
+    //     hyperdrive_rating: string,
+    //     id: number,
+    //     length: string,
+    //     manufacturer: string,
+    //     max_atmosphering_speed: string,
+    //     model: string,
+    //     name: string,
+    //     passengers: string,
+    //     pilots: []
+    //     starship_class: string,
+    // }
+    // interface valueFirst {
+    //     film: films[],
+    //     people: peoples[],
+    //     planet: planets[],
+    //     starShip: starShips[]
+    // }
 
-    const {search, setSearch} = useContext(SearchInputContext);
     // и фиг знает почему не работает(((
     // const [searchOutPut, setSearchOutPut] = useState<valueFirst>({
     //     film: [],
@@ -101,36 +132,38 @@ const Header = () => {
 
 
     // пока сделал так
-    const [films, setFilms] = useState<films[]>([])
-    const [peoples, setPeoples] = useState<peoples[]>([])
-    // const [planets, setPlanets] = useState<any>([])
-    // const [starShips, setStarShips] = useState<any>([])
+    // const [films, setFilms] = useState<films[]>([])
+    // const [peoples, setPeoples] = useState<peoples[]>([])
+    // const [planets, setPlanets] = useState<planets[]>([])
+    // const [starShips, setStarShips] = useState<starShips[]>([])
 
-    const change = <T,>(name: string, value: T[], setValue: React.Dispatch<React.SetStateAction<T[]>>, res: any) => {
-        // const changeValue = {...searchOutPut, [name]: res}; 
-        setValue({...value, [name]: res});
-        console.log(name)
-        console.log(res)
-    } 
+    // const change = <T,>(name: string, value: T[], setValue: React.Dispatch<React.SetStateAction<T[]>>, res: any) => {
+    //     // const changeValue = {...searchOutPut, [name]: res}; 
+    //     setValue({...value, [name]: res});
+    //     console.log(name)
+    //     console.log(res)
+    // } 
+
+    const {search, setSearch} = useContext(SearchInputContext);
+    const {films, setFilms} = useContext(FilmsContext);
+    const {peoples, setPeoples} = useContext(PeopleContext);
+    const {planets, setPlanets} = useContext(PlanetsContext);
+    const {starShips, setStarShips} = useContext(StarShipsContext);
     
-    useEffect(() => {
-        StarWars.film().then(res => {
-            // change('film', films, setFilms, res)
-            setFilms(res)
-            // console.log(films)
-            // console.log(films)
-        })
-        StarWars.people().then(res => {
-            // change('people', peoples, setPeoples, res)
-            setPeoples(res)
-        })
-        // StarWars.planet().then(res => {
-        //     change('planet', planets, setPlanets, res)
-        // })
-        // StarWars.starShip().then(res => {
-        //     change('starShip', starShips, setStarShips, res)
-        // })
-    }, [search]);
+    // useEffect(() => {
+    //     StarWars.film().then(res => {
+    //         setFilms(res)
+    //     })
+    //     StarWars.people().then(res => {
+    //         setPeoples(res)
+    //     })
+    //     StarWars.planet().then(res => {
+    //         setPlanets(res)
+    //     })
+    //     StarWars.starShip().then(res => {
+    //         setStarShips(res)
+    //     })
+    // }, [search]);
 
     return (
         <div className="header">
@@ -142,8 +175,8 @@ const Header = () => {
             onChange={e => setSearch?.(e.target.value)}
             value={search}>
             </input>
-            <div className='headerSearchResoult'>
-                <div className='searchGroup'>
+            <div className='headerSearchResoult' style={{display: search===''?'none':''}}>
+                <div className='searchGroup' style={{display: films.filter(el => search !== '' || undefined  ? el.title.toLowerCase().includes(`${search}`.toLowerCase()) || el.created.toLowerCase().slice(0,4).includes(`${search}`.toLowerCase()) : true).length===0?'none':'block'}}>
                     <div className='searchGroupName'>Films</div>
                     {films.filter(el => search !== '' || undefined  ? el.title.toLowerCase().includes(`${search}`.toLowerCase()) || el.created.toLowerCase().slice(0,4).includes(`${search}`.toLowerCase()) : true).map(el => {
                         return (
@@ -152,14 +185,14 @@ const Header = () => {
                                 <img src={require(`../../assets/images/films/${el.episode_id}.webp`)} alt='img' className='searchFilmImg' />
                                 <div>
                                     <div>{el.title}</div>
-                                    <div>{el.created.slice(0,4)}</div>
+                                    <div>{el.release_date.slice(0,4)}</div>
                                 </div>
                             </div>
                         )
                     })}
                 </div>
-                <div className='searchGroup'>
-                    <div>People</div>
+                <div className='searchGroup' style={{display: peoples.filter(el => search !== '' || undefined  ? el.name.toLowerCase().includes(`${search}`.toLowerCase()) : true).length===0?'none':'block'}}>
+                    <div className='searchGroupName'>People</div>
                     {peoples.filter(el => search !== '' || undefined  ? el.name.toLowerCase().includes(`${search}`.toLowerCase()) : true).map(el => {
                         return (
                             <div className='SearchGroupInfo'>
@@ -167,18 +200,36 @@ const Header = () => {
                                 <img src={el.image} alt='img' className='searchFilmImg' />
                                 <div>
                                     <div>{el.name}</div>
-                                    <div>{el.bornLocation}</div>
                                 </div>
                             </div>
                         )
                     })}
                 </div>
-                <div className='searchGroup'>
-                    <div>Planets</div>
+                <div className='searchGroup' style={{display: planets.filter(el => search !== '' || undefined  ? el.name.toLowerCase().includes(`${search}`.toLowerCase()) : true).length===0?'none':'block'}}>
+                <div className='searchGroupName'>Planets</div>
+                    {planets.filter(el => search !== '' || undefined  ? el.name.toLowerCase().includes(`${search}`.toLowerCase()) : true).map(el => {
+                        return (
+                            <div className='SearchGroupInfo'>
+                                {/* реально забыл как тут указывать пусть сразу от главной папки */}
+                                <img src={require(`../../assets/images/planets/${el.name}.webp`)} alt='img' className='searchFilmImg planets' />
+                                <div>{el.name}</div>
+                            </div>
+                        )
+                    })}
                 </div>
-                <div className='searchGroup'>
-                    <div>Star ships</div>
+                <div className='searchGroup' style={{display: starShips.filter(el => search !== '' || undefined  ? el.name.toLowerCase().includes(`${search}`.toLowerCase()) : true).length===0?'none':'block'}}>
+                    <div className='searchGroupName'>Star ships</div>
+                    {starShips.filter(el => search !== '' || undefined  ? el.name.toLowerCase().includes(`${search}`.toLowerCase()) : true).map(el => {
+                        return (
+                            <div className='SearchGroupInfo'>
+                                {/* реально забыл как тут указывать пусть сразу от главной папки */}
+                                <img src={require(`../../assets/images/starShips/${el.model.replace('/', '')}.webp`)} alt='img' className='searchFilmImg' />
+                                <div>{el.name}</div>
+                            </div>
+                        )
+                    })}
                 </div>
+                
             </div>
             <div style={{color: 'white'}}>Alexey Samoylo</div>
         </div>
