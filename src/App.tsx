@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header/header';
-import { SearchInputContext } from "./Context/searchInputContext";
+import ContentContext from "./Context/searchInputContext";
 
 
 function App() {
@@ -12,14 +12,14 @@ function App() {
 
   return (
     <div className="App">
-      <SearchInputContext.Provider value={{search, setSearch}} >
+      <ContentContext >
         <Router>
           <Header />
           <Routes>
             <Route path='/' element={<h1>Main</h1>} />
           </Routes>
         </Router>
-      </SearchInputContext.Provider>
+      </ContentContext>
     </div>
   );
 }

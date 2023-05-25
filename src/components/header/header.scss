@@ -25,6 +25,34 @@
     }
     .headerSearchResoult{
         display: none;
+        padding: 3px 10px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 500px;
+
+        .searchGroup{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 5px;
+            .searchGroupName{
+
+            }
+            .SearchGroupInfo{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 10px;
+                .searchFilmImg{
+                    width: 40px;
+                }
+                div{
+                    color: white;
+                }
+            }
+        }
+        
     }
     .headerSearch:focus-visible ~ .headerSearchResoult{
         display: block;
@@ -33,8 +61,11 @@
         left: 20px;
         display: block;
         width: 200px;
-        height: 100px;
+        max-height: 500px;
         background-color: blue;
         border: var(redPage);
+    }
+    .headerSearchResoult:hover{
+        display: block;
     }
 }

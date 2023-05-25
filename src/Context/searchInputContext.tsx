@@ -1,20 +1,24 @@
-import React, { useState, useEffect, createContext, FC } from 'react';
+import React, { useState, createContext, useEffect, ReactNode, FC } from 'react';
 
 interface StringContext {
     search?: string;
     setSearch?: (param: string) => void;
   }
-  
-// export const SearchInputContext = React.createContext<StringContext>({});
 
-type props = {
-  children?: React.ReactNode
+interface props {
+  children?: ReactNode
+  // any props that come into the component
 }
+export const SearchInputContext = createContext<StringContext>({});
 
-export const ContentContext: Props = ({ children: React.ReactNode }) => {
+const ContentContext: FC<props> = ({ children }) => {
+  const [search, setSearch] = useState<string | undefined>('');
+  
   return (
-    <div>
-
-    </div>
+      <SearchInputContext.Provider value={{search, setSearch}} >
+        {children}
+      </SearchInputContext.Provider>
   )
 }
+
+export default ContentContext;
