@@ -1,0 +1,40 @@
+@use 'src/main.scss' as *;
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+
+    .headerSearch{
+        border: none;
+        outline: none;
+        background-color: #347bd133;
+        border-radius: 16px;
+        height: 30px;
+        min-width: 200px;
+        padding: 12px 15px;
+        box-shadow: 0px 0px 15px $color-shadow-red-inactive;
+        color: rgba(0, 0, 255, 0.452);
+    }
+    .headerSearch::placeholder{
+        color: rgba(238, 130, 238, 0.158);
+    }
+    .headerSearch:focus-visible{
+        box-shadow: 0px 0px 15px $color-shadow-red-active;
+    }
+    .headerSearchResoult{
+        display: none;
+    }
+    .headerSearch:focus-visible ~ .headerSearchResoult{
+        display: block;
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        display: block;
+        width: 200px;
+        height: 100px;
+        background-color: blue;
+        border: var(redPage);
+    }
+}
