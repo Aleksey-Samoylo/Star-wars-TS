@@ -110,7 +110,9 @@ export const PeopleContext = createContext<PeopleContext>({});
 export const PlanetsContext = createContext<PlanetsContext>({});
 export const StarShipsContext = createContext<StarShipsContext>({});
 
+
 const ContentContext: FC<props> = ({ children }) => {
+
   const [search, setSearch] = useState<string | undefined>('');
   const [films, setFilms] = useState<Films[]>([])
   const [peoples, setPeoples] = useState<Peoples[]>([])
@@ -129,7 +131,7 @@ const ContentContext: FC<props> = ({ children }) => {
     StarWars.starShip().then(res => {
         setStarShips(res)
     })
-}, [search]);
+}, []);
   
   return (
       <SearchInputContext.Provider value={{search, setSearch}} >

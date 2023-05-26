@@ -165,6 +165,7 @@ const Header = () => {
     //     })
     // }, [search]);
 
+    const debouncedSearch =  debounce(setSearch, 1000)
     return (
         <div className="header">
             <input className="headerSearch" typeof="text" placeholder='&#x1F50D;&#xFE0E; Search By Title, Genre and Years'
@@ -172,8 +173,8 @@ const Header = () => {
             // onChange={e => debounce(() => {
             //     setSearch?.(e.target.value)
             // }, 350)}>
-            onChange={e => setSearch?.(e.target.value)}
-            value={search}>
+            onChange={e => debouncedSearch(e.target.value)}
+            >
             </input>
             <div className='headerSearchResoult' style={{display: search===''?'none':''}}>
                 <div className='searchGroup' style={{display: films.filter(el => search !== '' || undefined  ? el.title.toLowerCase().includes(`${search}`.toLowerCase()) || el.created.toLowerCase().slice(0,4).includes(`${search}`.toLowerCase()) : true).length===0?'none':'block'}}>

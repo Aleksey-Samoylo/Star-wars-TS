@@ -10,10 +10,10 @@ import StarShipsPage from "./components/pages/starShips";
 
 
 function App() {
-  const [search, setSearch] = useState<string>('');
-  const change = () => {
-    setSearch('hello')
-  };
+  
+  // if (localStorage.getItem('sortItems')===null) {
+  //   localStorage.setItem('sortItems')
+  // }
 
   return (
     <div className="App">

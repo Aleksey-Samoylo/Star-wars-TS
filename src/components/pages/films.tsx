@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import '../../elements/pages.scss'
 import { FilmsContext } from '../../Context/searchInputContext'
 import Page from '../../elements/page';
@@ -55,6 +55,9 @@ import { Layout, Params, Sort, SortType } from '../../Context/interface';
 
 const FilmsPage = (props: Params) => {
     const { films, setFilms } = useContext(FilmsContext);
+    const [sort, setSort] = useState<boolean>()
+    const [sortType, setSortType] = useState<boolean>()
+    const [layout, setLayout] = useState<boolean>()
     console.log(props.name)
     return (
         <Page name={'films'}>

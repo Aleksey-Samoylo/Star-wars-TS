@@ -98,3 +98,11 @@ export interface propsPage {
   sort?: boolean,
   sortType?: boolean
 }
+// export interface SortItems {
+//   film: {
+//     sort: boolean,
+//     sortType: boolean,
+//     layout: boolean
+//   },
+//   planet
+// }
