@@ -1,41 +1,35 @@
 import { useState, useContext, ReactNode } from 'react'
 import './pages.scss'
-import FilmsPage from '../components/pages/films';
+import FilmsPage from '../components/pages/film/films';
 import { useParams } from 'react-router-dom';
-import { propsPage } from '../Context/interface';
+import { PageProps } from '../Context/interface';
 
 
 
 
-const Page = (props: propsPage) => {
-    if (localStorage.getItem('layout')===null){
-        localStorage.setItem('layout', JSON.stringify({films: true, people: true, plants: true, starShips: true}))
-    }
-    // if(localStorage.getItem(sortType)===null){
-    //     localStorage.setItem('sortType', true)
-    // }
-    console.log(JSON.parse(localStorage.getItem('layout'))['films']);
-
-
-    const [sortType, setSortType] = useState<boolean>(true)
-    const [sort, setSort] = useState<boolean>(true);
+const Page = (props: PageProps) => {
     const [layout, setLayout] = useState<boolean>(true);
+    const LayoutSet = (a: boolean) => {
+        const layout = JSON.parse(localStorage.getItem('layout'));
+        layout[props.name] = a
+        localStorage.setItem('layout', JSON.stringify(layout))
+    }
 
     return (
         <div className="Page">
             <div className='Sort'>
                 <div>
                     <div className='block'>
-                        <div className='SortText' style={{display: props.name==='films'? '':'none'}} typeof='button' onClick={() => {setSortType(!sortType)}} >{sortType?'Episode':'Relise'}</div>
-                        <div className='button' typeof='button' onClick={() => setSort(!sort)} >
-                            <div>Sort by</div>
-                            <div>{sort ? '▲' : '▼'}</div>
+                        <div className='SortText' style={{display: props.sort!==undefined? '':'none'}} typeof='button' onClick={() => {props.setSortType(!props.sortType)}} >{props.sortType?props.firstSortName:props.secondSortName}</div>
+                        <div className='button' typeof='button' onClick={() => props.setSort(!props.sort)} >
+                            <div>Sort by {props.sortNameOnly}</div>
+                            <div>{props.sort ? '▲' : '▼'}</div>
                         </div>
                     </div>
                 </div>
                 {<div>
-                    <img src={require('../assets/images/table_sort.png')} className={!layout ? 'layout img' : ''} alt='img' onClick={() => setLayout(false)} />
-                    <img src={require('../assets/images/tile_sort.png')} className={layout ? 'layout img' : ''} alt='img' onClick={() => setLayout(true)} />
+                    <img src={require('../assets/images/table_sort.png')} className={!JSON.parse(localStorage.getItem('layout'))[props.name] ? 'layout img' : ''} alt='img' onClick={() => {setLayout(false); LayoutSet(false)}} />
+                    <img src={require('../assets/images/tile_sort.png')} className={JSON.parse(localStorage.getItem('layout'))[props.name] ? 'layout img' : ''} alt='img' onClick={() => {setLayout(true); LayoutSet(true) }} />
                 </div>}
             </div>
             <div className={layout ? 'Film row' : 'Film column'}>

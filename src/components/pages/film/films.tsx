@@ -1,8 +1,9 @@
-import { useContext, useState } from 'react'
-import '../../elements/pages.scss'
-import { FilmsContext } from '../../Context/searchInputContext'
-import Page from '../../elements/page';
-import { Layout, Params, Sort, SortType } from '../../Context/interface';
+import { useContext, useState, useEffect } from 'react'
+import '../../../elements/pages.scss'
+import { FilmsContext } from '../../../Context/searchInputContext'
+import Page from '../../../elements/page';
+
+// import { Layout, Sort, SortType } from '../../Context/interface';
 
 
 // const FilmsPage = () => {
@@ -53,17 +54,34 @@ import { Layout, Params, Sort, SortType } from '../../Context/interface';
 //     name: string
 // }
 
-const FilmsPage = (props: Params) => {
+
+
+const FilmsPage = () => {
     const { films, setFilms } = useContext(FilmsContext);
-    const [sort, setSort] = useState<boolean>()
-    const [sortType, setSortType] = useState<boolean>()
-    const [layout, setLayout] = useState<boolean>()
-    console.log(props.name)
+    const [sort, setSort] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).films.sort)
+    const [sortType, setSortType] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).films.sortType)
+
+    const Sort = (x, y) => {
+        if (sortType=== true) {
+            if (sort === true) {
+                return Number(x.release_date.slice(0,4))-(Number(y.release_date.slice(0,4)));
+            } else {
+                return Number(y.release_date.slice(0,4))-(Number(x.release_date.slice(0,4)));
+            }
+        } else {
+            if (sort === true) {
+                return Number(x.episode_id)-(Number(y.episode_id));
+            } else {
+                return Number(y.episode_id)-(Number(x.episode_id));
+            }
+        }
+    }
+
     return (
-        <Page name={'films'}>
-            {films.map(el => {
+        <Page name={'films'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Relise'} secondSortName={'Episode'}>
+            {films.sort(Sort).map(el => {
                 return (<div className='List'>
-                    <img src={require(`../../assets/images/films/${el.episode_id}.webp`)} alt='img' />
+                    <img src={require(`../../../assets/images/films/${el.episode_id}.webp`)} alt='img' />
                     <div className='ListInfo'>
                         <div>{el.title}</div>
                         <div>{el.release_date}</div>

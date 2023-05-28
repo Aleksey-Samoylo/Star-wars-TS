@@ -6,7 +6,7 @@ function debounce<A = unknown, R = void>(fn: (args: A) => R, ms: number): (args:
             if (timer) {
                 clearTimeout(timer);
             }
-            console.log('hi')
+
             timer = setTimeout(() => {
                 resolve(fn(args));
             }, ms);

@@ -1,17 +1,38 @@
 import { useContext, useState } from 'react'
 import { FilmsContext, PeopleContext, StarShipsContext } from '../../Context/searchInputContext';
 import Page from '../../elements/page';
-import { Params } from '../../Context/interface';
+// import { Params } from '../../Context/interface';
 
-const StarShipsPage = (props: Params) => {
+const StarShipsPage = () => {
     const { starShips, setStarShips } = useContext(StarShipsContext);
+    const [sort, setSort] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).starShips.sortType);
+    const [sortType, setSortType] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).starShips.sortType);
+
+    const Sort = (x, y) => {
+        if (sortType=== true) {
+            if (sort === true) {
+                return Number(x.cost_in_credits==='unknown' || x.cost_in_credits===undefined? '10000000000000000' : x.cost_in_credits)-(Number(y.cost_in_credits==='unknown' || y.cost_in_credits===undefined? '10000000000000000' : y.cost_in_credits));
+            } else {
+                return Number(y.cost_in_credits==='unknown' || y.cost_in_credits===undefined? '0' : y.cost_in_credits)-(Number(x.cost_in_credits==='unknown' || x.cost_in_credits===undefined? '0' : x.cost_in_credits));
+            }
+        } else {
+            if (sort === true) {
+                return Number(x.cargo_capacity==='unknown' || x.cargo_capacity===undefined? '10000000000000000' : x.cargo_capacity)-(Number(y.cargo_capacity==='unknown' || y.cargo_capacity===undefined? '10000000000000000' : y.cargo_capacity));
+            } else {
+                return Number(y.cargo_capacity==='unknown' || y.cargo_capacity===undefined? '0' : y.cargo_capacity)-(Number(x.cargo_capacity==='unknown' || x.cargo_capacity===undefined? '0' : x.cargo_capacity));
+            }
+        }
+    }
+
     return (
-        <Page name={'planets'} >
-            {starShips.map(el => {
+        <Page name={'planets'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Cost'} secondSortName={'Cargo'} >
+            {starShips.sort(Sort).map(el => {
                 return (<div className='List'>
                     <img src={require(`../../assets/images/starShips/${el.model.replace('/', '')}.webp`)} alt='img' />
                     <div className='ListInfo'>
                         <div>{el.name}</div>
+                        <div>{el.cost_in_credits}</div>
+                        <div>{el.cargo_capacity}</div>
                         {/* <div>{el.release_date}</div> */}
                     </div>
                 </div>)

@@ -17,11 +17,11 @@ export interface Films {
   vehicles: [string],
 }
 export interface Peoples {
-  birth_year: string,
+  birth_year: string, // есть ил у всех?
   born: number,
   bornLocation: [string],
   created: string,
-  died: string,
+  died: string, // есть ли?
   diedLocation: string,
   edited: string,
   eye_color: string,
@@ -89,20 +89,23 @@ export interface Layout {
   layout: boolean,
   setLayout: (param: StarShips[]) => void,
 }
-export interface Params {
-  name?: string
-}
-export interface propsPage {
-  children?: ReactNode
-  name?: string
-  sort?: boolean,
-  sortType?: boolean
-}
-// export interface SortItems {
-//   film: {
-//     sort: boolean,
-//     sortType: boolean,
-//     layout: boolean
-//   },
-//   planet
+// export interface Params {
+//   name?: string
 // }
+// export interface propsPage {
+//   children?: ReactNode
+//   name?: string
+//   sort?: boolean,
+//   sortType?: boolean
+// }
+export interface PageProps {
+  children?: ReactNode
+  name?: string,
+  sort: boolean,
+  setSort: (param: boolean) => void,
+  sortType?: boolean,
+  setSortType?: (param: boolean) => void,
+  sortNameOnly?: string,
+  firstSortName?: string,
+  secondSortName?: string,
+}
