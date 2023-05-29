@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
-import '../../../elements/pages.scss'
-import { FilmsContext } from '../../../Context/searchInputContext'
-import Page from '../../../elements/page';
+import '../../elements/pages.scss'
+import { FilmsContext } from '../../Context/searchInputContext'
+import Page from '../../elements/page';
 
 // import { Layout, Sort, SortType } from '../../Context/interface';
 
@@ -81,7 +81,7 @@ const FilmsPage = () => {
         <Page name={'films'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Relise'} secondSortName={'Episode'}>
             {films.sort(Sort).map(el => {
                 return (<div className='List'>
-                    <img src={require(`../../../assets/images/films/${el.episode_id}.webp`)} alt='img' />
+                    <img src={require(`../../assets/images/films/${el.episode_id}.webp`)} alt='img' />
                     <div className='ListInfo'>
                         <div>{el.title}</div>
                         <div>{el.release_date}</div>

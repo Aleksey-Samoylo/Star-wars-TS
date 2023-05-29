@@ -1,6 +1,6 @@
 import { useState, useContext, ReactNode } from 'react'
 import './pages.scss'
-import FilmsPage from '../components/pages/film/films';
+import FilmsPage from '../components/pages/films';
 import { useParams } from 'react-router-dom';
 import { PageProps } from '../Context/interface';
 
@@ -8,7 +8,7 @@ import { PageProps } from '../Context/interface';
 
 
 const Page = (props: PageProps) => {
-    const [layout, setLayout] = useState<boolean>(true);
+    const [layout, setLayout] = useState<boolean>(JSON.parse(localStorage.getItem('layout'))[props.name]);
     const LayoutSet = (a: boolean) => {
         const layout = JSON.parse(localStorage.getItem('layout'));
         layout[props.name] = a

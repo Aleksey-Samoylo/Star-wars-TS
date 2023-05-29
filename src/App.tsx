@@ -2,10 +2,11 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header/header';
 import ContentContext from "./Context/searchInputContext";
-import FilmsPage from "./components/pages/film/films";
+import FilmsPage from "./components/pages/films";
 import PeoplesPage from "./components/pages/peoples";
 import PlanetsPage from "./components/pages/planets";
 import StarShipsPage from "./components/pages/starShips";
+import DetailsePage from "./components/pages/detailse/detailsePage";
 // import Page from "./elements/page";
 
 
@@ -23,9 +24,8 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path='/' element={<FilmsPage />}>
-              
-            </Route>
+            <Route path='/' element={<FilmsPage />} />
+            <Route path='films/:id' element={<DetailsePage />} />
             <Route path='/peoples' element={<PeoplesPage />} />
             <Route path='/planets' element={<PlanetsPage />} />
             <Route path='/starships' element={<StarShipsPage />} />
