@@ -64,18 +64,22 @@ const DetailsePage = (props: Props) => {
         
         if (loading === true) {
             return (
-                <div className='ArrayInformation' style={{display: 'flex', gap: '20px'}}>
-                    {props.id.map(el => {
-                        // console.log(arr[el])
-                        // console.log(`../../../assets/images/${props.name}/${props.name==='films'?`${el+1}`:props.name==='planets'?`${arr[el].name}`:`${arr[el].model}`}.webp`)
-                        return (
-                            <div>
-                                {props.name==='peoples'?<img src={arr[el].image} alt='img' style={{width: '100px'}} />:<img style={{width: '100px'}} src={require(`../../../assets/images/${props.name}/${props.name==='films'?`${el+1}`:props.name==='planets'?`${arr[el].name}`:`${arr[el].model.replace('/', '')}`}.webp`)} alt='img' />}
-                                {props.name === 'films'? <div>{arr[el].title}</div>:<div style={{color: 'white'}}>{arr[el].name}</div>}
-                            </div>
-                        )
-                    })}
-                </div>
+                <>
+                    <div className='ArrayInformation' style={{display: 'flex', gap: '20px'}}>
+                        {props.id.slice(0, viewValue+5).map(el => {
+                            // console.log(arr[el])
+                            // console.log(`../../../assets/images/${props.name}/${props.name==='films'?`${el+1}`:props.name==='planets'?`${arr[el].name}`:`${arr[el].model}`}.webp`)
+                            return (
+                                <div >
+                                    {props.name==='peoples'?<img src={arr[el].image} alt='img' style={{width: '100px'}} />:<img style={{width: '100px'}} src={require(`../../../assets/images/${props.name}/${props.name==='films'?`${el+1}`:props.name==='planets'?`${arr[el].name}`:`${arr[el].model.replace('/', '')}`}.webp`)} alt='img' />}
+                                    {props.name === 'films'? <div>{arr[el].title}</div>:<div style={{color: 'white'}}>{arr[el].name}</div>}
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <button onClick={() => setViewValue(viewValue+5)}>Load More</button>
+                </>
+
             )
         } else {
             return (
