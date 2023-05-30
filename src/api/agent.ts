@@ -16,10 +16,10 @@ interface param {
     details: (engagementId: string) => void
 }
 export const StarWars = {
-    film: (page: string = 'all') => requests.get(`/film/${page}`),
-    people: (page: string = 'all') => requests.get(`/people/${page}`),
-    planet: (page: string = 'all') => requests.get(`/planet/${page}`),
-    starShip: (page: string = 'all') => requests.get(`/starship/${page}`),
-    venicle: (page: string = 'all') => requests.get(`/venicle/${page}`),
+    films: (page: string = 'all') => requests.get(`/film/${page}`),
+    peoples: (page: string = 'all') => requests.get(`/people/${page}`),
+    planets: (page: string = 'all') => requests.get(`/planet/${page}`),
+    starships: (page: string = 'all') => requests.get(`/starship/${page}`),
+    venicles: (page: string = 'all') => requests.get(`/venicle/${page}`),
 }
 

@@ -224,7 +224,7 @@ const Header = () => {
                         return (
                             <div className='SearchGroupInfo'>
                                 {/* реально забыл как тут указывать пусть сразу от главной папки */}
-                                <img src={require(`../../assets/images/starShips/${el.model.replace('/', '')}.webp`)} alt='img' className='searchFilmImg' />
+                                <img src={require(`../../assets/images/starships/${el.model.replace('/', '')}.webp`)} alt='img' className='searchFilmImg' />
                                 <div>{el.name}</div>
                             </div>
                         )

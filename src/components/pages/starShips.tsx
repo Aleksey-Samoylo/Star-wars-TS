@@ -28,7 +28,7 @@ const StarShipsPage = () => {
         <Page name={'planets'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Cost'} secondSortName={'Cargo'} >
             {starShips.sort(Sort).map(el => {
                 return (<div className='List'>
-                    <img src={require(`../../assets/images/starShips/${el.model.replace('/', '')}.webp`)} alt='img' />
+                    <img src={require(`../../assets/images/starships/${el.model.replace('/', '')}.webp`)} alt='img' />
                     <div className='ListInfo'>
                         <div>{el.name}</div>
                         <div>{el.cost_in_credits}</div>

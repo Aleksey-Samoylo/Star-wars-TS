@@ -119,16 +119,16 @@ const ContentContext: FC<props> = ({ children }) => {
   const [planets, setPlanets] = useState<Planets[]>([])
   const [starShips, setStarShips] = useState<StarShips[]>([])
   useEffect(() => {
-    StarWars.film().then(res => {
+    StarWars.films().then(res => {
         setFilms(res)
     })
-    StarWars.people().then(res => {
+    StarWars.peoples().then(res => {
         setPeoples(res)
     })
-    StarWars.planet().then(res => {
+    StarWars.planets().then(res => {
         setPlanets(res)
     })
-    StarWars.starShip().then(res => {
+    StarWars.starships().then(res => {
         setStarShips(res)
     })
 }, []);

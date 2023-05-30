@@ -25,7 +25,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<FilmsPage />} />
-            <Route path='films/:id' element={<DetailsePage />} />
+            <Route path='films/:id' element={<DetailsePage name={'films'} detailseInfo={['title', 'episode_id']} arrInfo={['planets', 'starships', 'characters']} />} />
             <Route path='/peoples' element={<PeoplesPage />} />
             <Route path='/planets' element={<PlanetsPage />} />
             <Route path='/starships' element={<StarShipsPage />} />
