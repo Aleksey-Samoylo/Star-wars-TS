@@ -1,12 +1,14 @@
 import { useContext, useState } from 'react'
 import  { PlanetsContext } from '../../Context/searchInputContext';
 import Page from '../../elements/page';
+import { useNavigate } from 'react-router-dom';
 // import { Params } from '../../Context/interface';
 
 const PlanetsPage = () => {
     const { planets, setPlanets } = useContext(PlanetsContext);
     const [sort, setSort] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).planets.sort);
     const [sortType, setSortType] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).planets.sortType);
+    const navigate = useNavigate();
 
     const Sort = (x, y) => {
         if (sortType=== true) {
@@ -27,8 +29,8 @@ const PlanetsPage = () => {
     return (
         <Page name={'planets'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Diameter'} secondSortName={'Population'} >
             {planets.sort(Sort).map(el => {
-                return (<div className='List'>
-                    <img src={require(`../../assets/images/planets/${el.name}.webp`)} style={{borderRadius: '160px'}} alt='img' />
+                return (<div className='List planets' onClick={() => navigate(`/planets/${el.id}`)}>
+                    <img className='planets' src={require(`../../assets/images/planets/${el.name}.webp`)} style={{borderRadius: '160px'}} alt='img' />
                     <div className='ListInfo'>
                         <div>{el.name}</div>
                         <div>{el.diameter}</div>

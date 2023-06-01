@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export interface Films {
   characters: [string],
@@ -19,7 +19,7 @@ export interface Films {
 export interface Peoples {
   birth_year: string, // есть ил у всех?
   born: number,
-  bornLocation: [string],
+  bornLocation: string,
   created: string,
   died: string, // есть ли?
   diedLocation: string,
@@ -36,7 +36,7 @@ export interface Peoples {
   name: string,
   skin_color: string,
   speciesv: string,
-  starshipsv: [string],
+  starships: [string],
   vehicles: [string],
   wiki: string,
 }

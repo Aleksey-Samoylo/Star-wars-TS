@@ -1,12 +1,14 @@
 import { useContext, useState } from 'react'
 import { FilmsContext, PeopleContext, StarShipsContext } from '../../Context/searchInputContext';
 import Page from '../../elements/page';
+import { useNavigate } from 'react-router-dom';
 // import { Params } from '../../Context/interface';
 
 const StarShipsPage = () => {
     const { starShips, setStarShips } = useContext(StarShipsContext);
     const [sort, setSort] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).starShips.sortType);
     const [sortType, setSortType] = useState<boolean>(JSON.parse(localStorage.getItem('sort')).starShips.sortType);
+    const navigate = useNavigate();
 
     const Sort = (x, y) => {
         if (sortType=== true) {
@@ -27,7 +29,7 @@ const StarShipsPage = () => {
     return (
         <Page name={'planets'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Cost'} secondSortName={'Cargo'} >
             {starShips.sort(Sort).map(el => {
-                return (<div className='List'>
+                return (<div className='List' onClick={() => navigate(`/starships/${el.id}`)}>
                     <img src={require(`../../assets/images/starships/${el.model.replace('/', '')}.webp`)} alt='img' />
                     <div className='ListInfo'>
                         <div>{el.name}</div>

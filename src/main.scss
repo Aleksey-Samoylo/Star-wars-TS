@@ -7,3 +7,17 @@ $color-blue: blue;
 $color-placeholder: rgba(238, 130, 238, 0.158);
 $color-background: rgba(23, 53, 88, 0.678);
 $color-write-blue: rgba(0, 0, 255, 0.452);
+
+.planets > img{
+    animation: 60s linear infinite rotate !important;
+}
+
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+}

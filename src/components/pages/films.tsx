@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import '../../elements/pages.scss'
 import { FilmsContext } from '../../Context/searchInputContext'
 import Page from '../../elements/page';
+import { useNavigate } from 'react-router-dom';
 
 // import { Layout, Sort, SortType } from '../../Context/interface';
 
@@ -77,17 +78,21 @@ const FilmsPage = () => {
         }
     }
 
+    const navigate = useNavigate();
+
     return (
         <Page name={'films'} sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} firstSortName={'Relise'} secondSortName={'Episode'}>
             {films.sort(Sort).map(el => {
-                return (<div className='List'>
-                    <img src={require(`../../assets/images/films/${el.episode_id}.webp`)} alt='img' />
-                    <div className='ListInfo'>
-                        <div>{el.title}</div>
-                        <div>{el.release_date}</div>
-                        <div className='info'>{el.opening_crawl}</div>
+                return (
+                    <div className='List'>
+                        <img src={require(`../../assets/images/films/${el.episode_id}.webp`)} alt='img' onClick={() => navigate(`/films/${el.id}`)} />
+                        <div className='ListInfo'>
+                            <div>{el.title}</div>
+                            <div>{el.release_date}</div>
+                            <div className='info'>{el.opening_crawl}</div>
+                        </div>
                     </div>
-                </div>)
+                )
             })}
         </Page>
     )

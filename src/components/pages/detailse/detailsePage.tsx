@@ -1,83 +1,89 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Films, Peoples, Planets, StarShips } from '../../../Context/interface';
 import { StarWars } from '../../../api/agent';
 import './Detailse.scss'
-
-interface Detailse {
-    img: string,
-    detailseInfo: [string]
-    name: string,
-    episode?: string,
-}
+import { Circles } from 'react-loader-spinner';
 
 interface Props {
     name?: string,
     detailseInfo?: string[],
     arrInfo?: string[]
-    // arr: Films | Peoples | Planets | StarShips
+}
+interface ArrInfo {
+    name: string,
+    id?: string[],
+    info?: string[],
 }
 
 const DetailsePage = (props: Props) => {
     const { id } = useParams();
-    const [value, setValue] = useState<Films | Peoples | Planets | StarShips>()
-    const [loading, setLoading] = useState<boolean>(false)
+    const [value, setValue] = useState<any>() // как тут тоже сделать <Films | Peoples | Planets | StarShips>
+    const [pageLoading, setPageLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
     useEffect(() => {
-        if (props.name === 'films') {
-            StarWars.films(id).then(res => {
+            StarWars[props.name](id).then(res => {
                 setValue(res);
-                setLoading(true);
+                setPageLoading(true);
             })
-        }
-    }, [])
-    // console.log(value)
+    }, [id, props.name])
 
     const PageLoading = () => {
         return (
-            <div>Loading</div>
+            <Circles
+                height="40"
+                width="40"
+                color="blue"
+                ariaLabel="circles-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+            />
         )
     }
 
-    // Тут стоит понимать, что я делаю запросы что бы показать, что в обычном варианте сайта не будет сразу грузится абсолютно все данные,
-    // как у меня в SearchInputContext, в том случае данные должны грузится для поиска отдельно, и отдаватся мне в разных массивах в res,
-    // и тут так же отдельно, даже учитывая количество запросов, они бы мне отдавались например все люди в одном массиве,
-    // все планеты и тд в другом массиве, другого запроса
-
-    interface ArrInfo {
-        name: string,
-        id?: string[],
-        info?: string[],
-    }
-
-    // переименовать метод, и желательно вынести его в элементы
     const ArrayInformation = (props: ArrInfo) => {
         const [viewValue, setViewValue] = useState<number>(0)
-        const [arr, setArr] = useState([]); //Добавить сюда interface, когда пытаюсь добавить несколько он ругается, что не может найти название ключа
-        const [loading, setLoading] = useState<boolean>(false);
+        const [arr, setArr] = useState([]);
+        const [arrLoading, setArrLoading] = useState<boolean>(false);
+        const [loading, setLoading] = useState<boolean>(false)
+        const [secondLoading, setSecondLoading] = useState<boolean>(false)
         useEffect(() => {
             StarWars[props.name]().then(res => {
                 setArr(res);
-                
                 setLoading(true);
             })
         }, [])
-        
-        if (loading === true) {
+
+        const LoadMore = () => {
+            setArrLoading(true)
+            setTimeout(() => {setViewValue(viewValue+5); setArrLoading(false)}, 350)
+        }
+
+        if (props.id !== undefined && loading) {
             return (
                 <>
+                    <div style={{color: 'white'}}>{props.name}</div>
                     <div className='ArrayInformation' style={{display: 'flex', gap: '20px'}}>
                         {props.id.slice(0, viewValue+5).map(el => {
-                            // console.log(arr[el])
-                            // console.log(`../../../assets/images/${props.name}/${props.name==='films'?`${el+1}`:props.name==='planets'?`${arr[el].name}`:`${arr[el].model}`}.webp`)
-                            return (
-                                <div >
-                                    {props.name==='peoples'?<img src={arr[el].image} alt='img' style={{width: '100px'}} />:<img style={{width: '100px'}} src={require(`../../../assets/images/${props.name}/${props.name==='films'?`${el+1}`:props.name==='planets'?`${arr[el].name}`:`${arr[el].model.replace('/', '')}`}.webp`)} alt='img' />}
-                                    {props.name === 'films'? <div>{arr[el].title}</div>:<div style={{color: 'white'}}>{arr[el].name}</div>}
-                                </div>
-                            )
+                            
+                            if (Number(el)-1<=arr.length&&props.name!==undefined){
+                                if (props.name==='planets') {
+                                }
+                                return (
+                                    <>
+                                        <div className={`arrItem ${props.name==='planets'?'planets':''}`} onClick={() => {setPageLoading(false) ;navigate(`/${props.name}/${el}`)}}>
+                                            {props.name==='peoples'?<img src={arr[Number(el)-1].image} alt='img' />:<img src={require(`../../../assets/images/${props.name}/${props.name==='films'?`${el}`:props.name==='planets'?`${arr[Number(el)-1].name}`:`${arr[Number(el)-1].model.replace('/', '')}`}.webp`)} alt='img' />}
+                                            {props.name === 'films'? <div className='arrText'>{arr[Number(el)-1].title}</div>:<div style={{color: 'white'}}>{arr[Number(el)-1].name}</div>}
+                                        </div>
+                                        <div className='footer'></div>
+                                    </>
+                                )
+                            }
                         })}
                     </div>
-                    <button onClick={() => setViewValue(viewValue+5)}>Load More</button>
+                    {arrLoading?<PageLoading />: ''}
+                    <button style={{display: viewValue+5>=props.id.length?'none': ''}} className='loadMoreButton' onClick={LoadMore}>Load More</button>
                 </>
 
             )
@@ -91,24 +97,32 @@ const DetailsePage = (props: Props) => {
     const PageTrue = () => {
         return (
             <>
-                <div className="TopInfoDeteils">
-                    <img src={require(`../../../assets/images/${props.name}/${id}.webp`)} alt='img' className='mainImg' />
+                <div className={`TopInfoDeteils ${props.name==='planets'?'planets':''}`}>
+                    {props.name==='peoples'?<img className='mainImg' src={value.image} alt='img' />:<img className={`mainImg ${props.name==='planets'?'planets':''}`} src={require(`../../../assets/images/${props.name}/${props.name==='films'?`${id}`:props.name==='planets'?`${value.name}`:`${value.model.replace('/', '')}`}.webp`)} alt='img' />}
                     <div className="TextInfoHead" style={{color: 'white'}}>
                         {props.detailseInfo.map(el => {
-                            console.log(value[el])
-                            return(
-                                <div style={{display: 'flex', gap: '10px'}}>
-                                    <div>{el.replace('_', ' ')}:</div>
-                                    <div>{value[el]}</div>
-                                </div>
-                            )
+                            if (value[el] !== undefined) {
+                                return(
+                                    <div style={{display: 'flex', gap: '10px'}}>
+                                        <div>{el.replace('_', ' ')}:</div>
+                                        <div>{value[el]}</div>
+                                    </div>
+                                )
+                            }
                         })}
+                        <div style={{
+                            display: props.name==='films'?'':'none', 
+                            color: 'white', marginTop: '20px'}}>
+                            {props.name==='films'? value.opening_crawl: ''}
+                        </div>
                     </div>
                 </div>
                 {props.arrInfo.map(el => {
-                    return (
-                        <ArrayInformation name={el==='characters'?'peoples':el} id={value[el]} />
-                    )
+                    if (value[el]!==undefined && value[el].length !==0) {
+                        return (
+                            <ArrayInformation name={el==='characters'?'peoples':el} id={value[el]} />
+                        )
+                    }
                 })}
                 
             </>
@@ -118,7 +132,7 @@ const DetailsePage = (props: Props) => {
     
     return (
         <div className="deteilsPage">
-            {loading? <PageTrue />: <PageLoading />}
+            {pageLoading? <PageTrue />: <PageLoading />}
         </div>
     )
 }

@@ -25,10 +25,30 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<FilmsPage />} />
-            <Route path='films/:id' element={<DetailsePage name={'films'} detailseInfo={['title', 'episode_id']} arrInfo={['planets', 'starships', 'characters']} />} />
+            <Route path='/films' element={<FilmsPage />} />
+            <Route path='films/:id' 
+              element={<DetailsePage 
+                name={'films'} 
+                detailseInfo={['title', 'episode_id', 'created', 'director', 'edited', 'producer', 'release_date']} 
+                arrInfo={['planets', 'starships', 'characters']} />} />
             <Route path='/peoples' element={<PeoplesPage />} />
+            <Route path='peoples/:id' 
+              element={<DetailsePage 
+                name={'peoples'} 
+                detailseInfo={['name', 'born', 'bornLocation', 'died', 'diedLocation', 'eye_color', 'gender', 'hair_color', 'height', 'homeworld', 'mass', 'skin_color']} 
+                arrInfo={['films', 'starships']} />} />
             <Route path='/planets' element={<PlanetsPage />} />
+            <Route path='planets/:id' 
+              element={<DetailsePage 
+                name={'planets'}
+                detailseInfo={['name', 'climate', 'created', 'diameter', 'gravity', 'orbital_period', 'population', 'rotation_period', 'surface_water', 'terrain']} 
+                arrInfo={['films']} />} />
             <Route path='/starships' element={<StarShipsPage />} />
+            {/* <Route path='starships/:id' 
+              element={<DetailsePage 
+                name={'starships'} 
+                detailseInfo={['title', 'episode_id', 'created', 'director', 'edited', 'producer', 'release_date']} 
+                arrInfo={['planets', 'starships', 'characters']} />} /> */}
           </Routes>
         </Router>
       </ContentContext>

@@ -1,85 +1,7 @@
-import React, { useState, createContext, useEffect, ReactNode, FC } from 'react';
+import { useState, createContext, useEffect, ReactNode, FC } from 'react';
 import { StarWars } from '../api/agent';
 import { Films, Peoples, Planets, StarShips } from './interface';
 
-
-// interface films {
-//   characters: [string],
-//   created: string,
-//   director: string,
-//   edited: string,
-//   episode_id: number,
-//   id: number,
-//   opening_crawl: string,
-//   planets: [string],
-//   producer: string,
-//   release_date: string,
-//   species: [string],
-//   starships: [string],
-//   title: string,
-//   vehicles: [string],
-// }
-// interface peoples {
-//   birth_year: string,
-//   born: number,
-//   bornLocation: [string],
-//   created: string,
-//   died: string,
-//   diedLocation: string,
-//   edited: string,
-//   eye_color: string,
-//   films: [string],
-//   gender: string,
-//   hair_color: string,
-//   height: string,
-//   homeworld: string,
-//   id: number,
-//   image: string,
-//   mass: string,
-//   name: string,
-//   skin_color: string,
-//   speciesv: string,
-//   starshipsv: [string],
-//   vehicles: [string],
-//   wiki: string,
-// }
-// interface planets {
-//   climate: string,
-//   created: string,
-//   diameter: string,
-//   edited: string,
-//   films: [string],
-//   gravity: string,
-//   id: number,
-//   name: string,
-//   orbital_period: string,
-//   population: string,
-//   residents: [string],
-//   rotation_period: string,
-//   surface_water: string,
-//   terrain: string,
-// }
-// // если именно в starShips поставить без ? выдаёт ошибку
-// interface starShips {
-//   MGLT?: string,
-//   cargo_capacity?: string,
-//   consumables?: string,
-//   cost_in_credits?: string,
-//   created?: string,
-//   crew?: string,
-//   edited?: string,
-//   films?: [string],
-//   hyperdrive_rating?: string,
-//   id?: number,
-//   length?: string,
-//   manufacturer?: string,
-//   max_atmosphering_speed?: string,
-//   model?: string,
-//   name?: string,
-//   passengers?: string,
-//   pilots?: []
-//   starship_class?: string,
-// }
 interface StringContext {
   search?: string,
   setSearch?: (param: string) => void,
@@ -102,7 +24,6 @@ interface StarShipsContext {
 }
 interface props {
   children: ReactNode
-  // any props that come into the component
 }
 export const SearchInputContext = createContext<StringContext>({});
 export const FilmsContext = createContext<FilmsContext>({});
