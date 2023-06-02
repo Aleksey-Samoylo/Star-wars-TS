@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import './header.scss'
 import { FilmsContext, PeopleContext, PlanetsContext, SearchInputContext, StarShipsContext } from '../../Context/searchInputContext';
 import debounce from '../debounce/debounce';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
@@ -23,6 +23,12 @@ const Header = () => {
             onChange={e => debouncedSearch(e.target.value)}
             >
             </input>
+            <div className='headerMenuButton'>
+                <div onClick={() => navigate('/films')}>Films</div>
+                <div onClick={() => navigate('/peoples')}>Peoples</div>
+                <div onClick={() => navigate('/planets')}>Planets</div>
+                <div onClick={() => navigate('/starships')}>Star ships</div>
+            </div>
             <div className='headerSearchResoult' style={{display: search===''?'none':''}}>
                 <div className='searchGroup' style={{display: films.filter(el => search !== '' || undefined  ? el.title.toLowerCase().includes(`${search}`.toLowerCase()) || el.created.toLowerCase().slice(0,4).includes(`${search}`.toLowerCase()) : true).length===0?'none':'block'}}>
                     <div className='searchGroupName'>Films</div>

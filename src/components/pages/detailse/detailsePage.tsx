@@ -4,6 +4,7 @@ import { Films, Peoples, Planets, StarShips } from '../../../Context/interface';
 import { StarWars } from '../../../api/agent';
 import './Detailse.scss'
 import { Circles } from 'react-loader-spinner';
+import { ToApperCase } from '../../../elements/toApperCase';
 
 interface Props {
     name?: string,
@@ -18,7 +19,7 @@ interface ArrInfo {
 
 const DetailsePage = (props: Props) => {
     const { id } = useParams();
-    const [value, setValue] = useState<any>() // как тут тоже сделать <Films | Peoples | Planets | StarShips>
+    const [value, setValue] = useState<any>();
     const [pageLoading, setPageLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     useEffect(() => {
@@ -47,7 +48,6 @@ const DetailsePage = (props: Props) => {
         const [arr, setArr] = useState([]);
         const [arrLoading, setArrLoading] = useState<boolean>(false);
         const [loading, setLoading] = useState<boolean>(false)
-        const [secondLoading, setSecondLoading] = useState<boolean>(false)
         useEffect(() => {
             StarWars[props.name]().then(res => {
                 setArr(res);
@@ -63,7 +63,7 @@ const DetailsePage = (props: Props) => {
         if (props.id !== undefined && loading) {
             return (
                 <>
-                    <div style={{color: 'white'}}>{props.name}</div>
+                    <div style={{color: 'white'}}>{ToApperCase(props.name)}</div>
                     <div className='ArrayInformation' style={{display: 'flex', gap: '20px'}}>
                         {props.id.slice(0, viewValue+5).map(el => {
                             
@@ -104,7 +104,7 @@ const DetailsePage = (props: Props) => {
                             if (value[el] !== undefined) {
                                 return(
                                     <div style={{display: 'flex', gap: '10px'}}>
-                                        <div>{el.replace('_', ' ')}:</div>
+                                        <div>{ToApperCase(el.replace('_', ' '))}:</div>
                                         <div>{value[el]}</div>
                                     </div>
                                 )
@@ -120,7 +120,7 @@ const DetailsePage = (props: Props) => {
                 {props.arrInfo.map(el => {
                     if (value[el]!==undefined && value[el].length !==0) {
                         return (
-                            <ArrayInformation name={el==='characters'?'peoples':el} id={value[el]} />
+                            <ArrayInformation name={el==='characters' || el==='pilots' || el==='residents'?'peoples':el} id={value[el]} />
                         )
                     }
                 })}

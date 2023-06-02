@@ -29,7 +29,7 @@ function App() {
             <Route path='films/:id' 
               element={<DetailsePage 
                 name={'films'} 
-                detailseInfo={['title', 'episode_id', 'created', 'director', 'edited', 'producer', 'release_date']} 
+                detailseInfo={['title', 'episode_id', 'director', 'producer', 'release_date']} 
                 arrInfo={['planets', 'starships', 'characters']} />} />
             <Route path='/peoples' element={<PeoplesPage />} />
             <Route path='peoples/:id' 
@@ -41,14 +41,14 @@ function App() {
             <Route path='planets/:id' 
               element={<DetailsePage 
                 name={'planets'}
-                detailseInfo={['name', 'climate', 'created', 'diameter', 'gravity', 'orbital_period', 'population', 'rotation_period', 'surface_water', 'terrain']} 
-                arrInfo={['films']} />} />
+                detailseInfo={['name', 'climate', 'diameter', 'gravity', 'orbital_period', 'population', 'rotation_period', 'surface_water', 'terrain']} 
+                arrInfo={['films', 'residents']} />} />
             <Route path='/starships' element={<StarShipsPage />} />
-            {/* <Route path='starships/:id' 
+            <Route path='starships/:id' 
               element={<DetailsePage 
                 name={'starships'} 
-                detailseInfo={['title', 'episode_id', 'created', 'director', 'edited', 'producer', 'release_date']} 
-                arrInfo={['planets', 'starships', 'characters']} />} /> */}
+                detailseInfo={['name', 'model', 'starship_class', 'passengers', 'max_atmosphering_speed', 'manufacturer', 'length', 'hyperdrive_rating', 'crew', 'cost_in_credits', 'consumables', 'cargo_capacity', 'MGLT']} 
+                arrInfo={['films', 'pilots']} />} />
           </Routes>
         </Router>
       </ContentContext>
